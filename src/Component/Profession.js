@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 
 import { app } from "../Base";
 
@@ -14,6 +14,7 @@ function Profession() {
     const getData = async () => {
         await db
           .collection("sohai")
+        //   .limit()
         //   .orderBy("date", "desc")
           .onSnapshot((snapshot) => {
             const item = [];
@@ -40,7 +41,7 @@ function Profession() {
             alignItems:"flex-end",
             
         }}>
-            <h2 style={{textAlign:"left", marginRight:"60px"}}>Professionals</h2>
+            <h2 style={{textAlign:"left", marginRight:"30px", color:"blueviolet"}}>Talk to a Professional</h2>
 
             {/* Mapping Part to the Card */}
             
