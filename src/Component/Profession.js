@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom'
-import moment from 'moment'
 
 import { app } from "../Base";
 
@@ -14,8 +13,8 @@ function Profession() {
 
     const getData = async () => {
         await db
-          .collection("utac")
-          .orderBy("date", "desc")
+          .collection("sohai")
+        //   .orderBy("date", "desc")
           .onSnapshot((snapshot) => {
             const item = [];
             snapshot.forEach((doc) => {
@@ -36,18 +35,26 @@ function Profession() {
     return (
         <div style={{
             flexWrap:"wrap",
+            flexDirection:"column",
             display:"flex",
-            justifyContent:"flex-end"
+            alignItems:"flex-end",
+            
         }}>
+            <h2 style={{textAlign:"left", marginRight:"60px"}}>Professionals</h2>
+
+            {/* Mapping Part to the Card */}
             
             {Prof.map(({id, avatar, name, firm, desc, date}) => (
+
                 <div style={{
                     display:"flex",
+                    flexWrap:"wrap",
                     flexDirection:"column",
                     width:"270px",
                     margin:"10px",
                     border:"1px solid purple",
-                    boxShadow:"1px 0px 2px 0px"
+                    boxShadow:"1px 0px 2px 0px",
+                    backgroundColor:"white"
                 }}>
     
                     <div style={{
@@ -55,6 +62,8 @@ function Profession() {
                         justifyContent:"space-around",
                         backgroundColor:"whitesmoke"
                     }}>
+
+                {/* The consuming of Professional Images */}
                         <div style={{
                             display:"flex",
                             justifyContent:"center",
@@ -66,23 +75,31 @@ function Profession() {
                             margin:"5px",
                             border:"1px solid pink", 
                            
-                        }}>{avatar}</div>
-                        <div style={{marginRight:"5px", height:"40px", justifyContent:"space-between"}}>
-                            <div>Registered {moment(date).fromNow()}</div>
+                        }}>
+                            <img src={avatar} style={{height:"40px", width:"40px", borderRadius:"20px"}}  alt="image"/>
+                        </div>
+
+                {/* Consuming the Professional Names and Firms */}
+
+                        <div style={{marginRight:"5px", height:"40px"}}>
                             <div style={{fontWeight:"bold"}}>
                                 {name}
                             </div>
     
-                            <div>{firm}</div>
+                            <div style={{color:"purple"}}>
+                                {firm}
+                            </div>
                         </div>
     
                     </div>
     
-    
                     <hr style={{width:"250px", }}/>
-    
-                    <div style={{marginLeft:"7px", marginRight:"7px", marginBottom:"5px", textAlign:"left"}}
-                    >{desc}</div>
+
+                {/* Part Where the Bio is Mapped */}
+
+                    <div style={{marginLeft:"7px", marginRight:"7px", marginBottom:"5px", textAlign:"left"}}>
+                    <b>Biography</b><br/> {desc}
+                    </div>
     
                 </div>
             ))}
